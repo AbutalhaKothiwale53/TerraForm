@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraform Configuration Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Terraform Configuration Generator</h1>
+        <p>Generate terraform.tfvars files for your AWS infrastructure</p>
+    </header>
+
+    <div class="container">
+        <nav class="template-nav">
+            <button class="nav-btn active" data-template="backup">AWS Backup</button>
+            <button class="nav-btn" data-template="ec2">AWS EC2</button>
+        </nav>
+
+        <div class="template-content">
+            <iframe id="template-frame" src="code-template/AWS_BACKUP_TF/index.html" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
