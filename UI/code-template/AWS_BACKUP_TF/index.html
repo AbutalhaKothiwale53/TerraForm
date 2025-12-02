@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Backup Configuration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>AWS Backup Configuration</h2>
+        <form id="backupForm">
+            <!-- AWS Account Section -->
+            <div class="form-section">
+                <h3>AWS Account Details</h3>
+                <div class="form-group">
+                    <label for="awsAccountId">AWS Account ID</label>
+                    <input type="text" id="awsAccountId" placeholder="123456789012" required>
+                </div>
+                <div class="form-group">
+                    <label for="awsRegion">AWS Region</label>
+                    <input type="text" id="awsRegion" placeholder="us-east-1" required>
+                </div>
+            </div>
+
+            <!-- Project Details Section -->
+            <div class="form-section">
+                <h3>Project Details</h3>
+                <div class="form-group">
+                    <label for="projectName">Project Name</label>
+                    <input type="text" id="projectName" placeholder="my-project" required>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" id="department" placeholder="Engineering" required>
+                </div>
+                <div class="form-group">
+                    <label for="environment">Environment</label>
+                    <select id="environment" required>
+                        <option value="">Select Environment</option>
+                        <option value="dev">Development</option>
+                        <option value="staging">Staging</option>
+                        <option value="prod">Production</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Backup Configuration Section -->
+            <div class="form-section">
+                <h3>Backup Configuration</h3>
+                <div class="form-group">
+                    <label for="backupPlanName">Backup Plan Name</label>
+                    <input type="text" id="backupPlanName" placeholder="my-backup-plan" required>
+                </div>
+                <div class="form-group">
+                    <label for="recoveryPointDays">Recovery Point Retention (days)</label>
+                    <input type="number" id="recoveryPointDays" min="1" value="30" required>
+                </div>
+            </div>
+
+            <!-- Resources Section -->
+            <div class="form-section">
+                <h3>Resources to Backup</h3>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="resource_types" value="EC2"> EC2 Instances
+                    </label>
+                    <label>
+                        <input type="checkbox" name="resource_types" value="EBS"> EBS Volumes
+                    </label>
+                    <label>
+                        <input type="checkbox" name="resource_types" value="RDS"> RDS Databases
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="resourceIds">Resource IDs (comma-separated)</label>
+                    <textarea id="resourceIds" placeholder="i-1234567890abcdef0,i-0987654321fedcba0" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Schedule Section -->
+            <div class="form-section">
+                <h3>Backup Schedule</h3>
+                <div class="form-group">
+                    <label for="scheduleExpression">Cron Expression</label>
+                    <input type="text" id="scheduleExpression" placeholder="cron(0 5 ? * * *)" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleMode">Schedule Mode</label>
+                    <select id="scheduleMode" required>
+                        <option value="">Select Mode</option>
+                        <option value="RATE">Rate</option>
+                        <option value="CRON">Cron</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-buttons">
+                <button type="button" onclick="generateTfvars()" class="btn btn-primary">Generate terraform.tfvars</button>
+                <button type="reset" class="btn btn-secondary">Reset Form</button>
+            </div>
+        </form>
+
+        <!-- Output Section -->
+        <div class="output-section" id="outputSection" style="display:none;">
+            <h3>Generated terraform.tfvars</h3>
+            <pre id="tfvarsOutput"></pre>
+            <div class="output-buttons">
+                <button onclick="copyToClipboard()" class="btn btn-success">Copy to Clipboard</button>
+                <button onclick="downloadTfvars()" class="btn btn-info">Download File</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

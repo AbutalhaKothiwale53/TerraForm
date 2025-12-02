@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS EC2 Configuration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>AWS EC2 Instance Configuration</h2>
+        <form id="ec2Form">
+            <!-- AWS Account Section -->
+            <div class="form-section">
+                <h3>AWS Account Details</h3>
+                <div class="form-group">
+                    <label for="awsAccountId">AWS Account ID</label>
+                    <input type="text" id="awsAccountId" placeholder="123456789012" required>
+                </div>
+                <div class="form-group">
+                    <label for="awsRegion">AWS Region</label>
+                    <input type="text" id="awsRegion" placeholder="us-east-1" required>
+                </div>
+            </div>
+
+            <!-- Instance Configuration Section -->
+            <div class="form-section">
+                <h3>Instance Configuration</h3>
+                <div class="form-group">
+                    <label for="instanceName">Instance Name</label>
+                    <input type="text" id="instanceName" placeholder="web-server-1" required>
+                </div>
+                <div class="form-group">
+                    <label for="instanceType">Instance Type</label>
+                    <select id="instanceType" required>
+                        <option value="">Select Instance Type</option>
+                        <option value="t2.nano">t2.nano</option>
+                        <option value="t2.micro">t2.micro</option>
+                        <option value="t2.small">t2.small</option>
+                        <option value="t3.small">t3.small</option>
+                        <option value="m5.large">m5.large</option>
+                        <option value="m5.xlarge">m5.xlarge</option>
+                        <option value="c5.large">c5.large</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amiId">AMI ID</label>
+                    <input type="text" id="amiId" placeholder="ami-0c55b159cbfafe1f0" required>
+                </div>
+            </div>
+
+            <!-- Network Configuration Section -->
+            <div class="form-section">
+                <h3>Network Configuration</h3>
+                <div class="form-group">
+                    <label for="subnetId">Subnet ID</label>
+                    <input type="text" id="subnetId" placeholder="subnet-12345678" required>
+                </div>
+                <div class="form-group">
+                    <label for="securityGroupIds">Security Group IDs (comma-separated)</label>
+                    <textarea id="securityGroupIds" placeholder="sg-12345678,sg-87654321" rows="2"></textarea>
+                </div>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="associatePublicIp"> Associate Public IP
+                    </label>
+                </div>
+            </div>
+
+            <!-- Storage Configuration Section -->
+            <div class="form-section">
+                <h3>Storage Configuration</h3>
+                <div class="form-group">
+                    <label for="rootVolumeSize">Root Volume Size (GB)</label>
+                    <input type="number" id="rootVolumeSize" min="10" value="20" required>
+                </div>
+                <div class="form-group">
+                    <label for="rootVolumeType">Root Volume Type</label>
+                    <select id="rootVolumeType" required>
+                        <option value="gp2">gp2 (General Purpose)</option>
+                        <option value="gp3">gp3 (General Purpose SSD)</option>
+                        <option value="io1">io1 (Provisioned IOPS)</option>
+                        <option value="st1">st1 (Throughput Optimized)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tagging Section -->
+            <div class="form-section">
+                <h3>Tags</h3>
+                <div class="form-group">
+                    <label for="project">Project Name</label>
+                    <input type="text" id="project" placeholder="my-project" required>
+                </div>
+                <div class="form-group">
+                    <label for="environment">Environment</label>
+                    <select id="environment" required>
+                        <option value="">Select Environment</option>
+                        <option value="dev">Development</option>
+                        <option value="staging">Staging</option>
+                        <option value="prod">Production</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" id="department" placeholder="Engineering" required>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-buttons">
+                <button type="button" onclick="generateEc2Tfvars()" class="btn btn-primary">Generate terraform.tfvars</button>
+                <button type="reset" class="btn btn-secondary">Reset Form</button>
+            </div>
+        </form>
+
+        <!-- Output Section -->
+        <div class="output-section" id="outputSection" style="display:none;">
+            <h3>Generated terraform.tfvars</h3>
+            <pre id="tfvarsOutput"></pre>
+            <div class="output-buttons">
+                <button onclick="copyToClipboard()" class="btn btn-success">Copy to Clipboard</button>
+                <button onclick="downloadTfvars()" class="btn btn-info">Download File</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
